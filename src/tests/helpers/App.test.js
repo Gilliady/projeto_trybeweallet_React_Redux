@@ -48,7 +48,12 @@ describe('Header', () => {
     act(() => {
       userEvent.click(screen.getByRole('button', { name: /adicionar despesa/i }));
     });
-    const newText = await screen.findByText(/47\.53/i);
+    const [newText] = await screen.findAllByText(/47\.53/i);
     expect(newText).toBeInTheDocument();
+
+    act(() => {
+      userEvent.click(screen.getAllByRole('button', { name: /excluir/i })[0]);
+    });
+    expect(newText.textContent).toBe('0.00');
   });
 });

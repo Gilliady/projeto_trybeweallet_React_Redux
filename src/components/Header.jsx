@@ -8,8 +8,10 @@ class Header extends Component {
     return (
       <header>
         <p data-testid="email-field">{`Olá, ${email}`}</p>
-        <p data-testid="total-field">
-          <strong>
+        <p>
+          Total de despesas:
+          {' '}
+          <strong data-testid="total-field">
             {expenses
               .reduce((
                 acc,
