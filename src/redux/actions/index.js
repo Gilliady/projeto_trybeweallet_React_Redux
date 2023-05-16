@@ -1,6 +1,7 @@
 // Coloque aqui suas actions
 export const LOGIN = 'LOGIN';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 export const EDIT_EXPENSE = 'EDIT_EXPENSE';
 export const UPDATE_CURRENCIES = 'UPDATE_CURRENCIES';
 
@@ -11,6 +12,11 @@ export const login = (payload) => ({
 
 export const addExpense = (payload) => ({
   type: ADD_EXPENSE,
+  payload,
+});
+
+export const removeExpense = (payload) => ({
+  type: REMOVE_EXPENSE,
   payload,
 });
 

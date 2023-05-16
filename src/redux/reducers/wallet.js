@@ -21,6 +21,12 @@ const walletReducer = (state = INITIAL_STATE, action) => {
         description: payload.descricao,
         exchangeRates: payload.exchangeRates,
       }] };
+
+  case 'REMOVE_EXPENSE':
+    return { ...state,
+      expenses: payload,
+    };
+
   case 'UPDATE_CURRENCIES':
     return { ...state, ...action.payload };
   default:
