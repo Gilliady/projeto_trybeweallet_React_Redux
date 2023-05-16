@@ -18,9 +18,9 @@ class Login extends React.Component {
 
   onClickLogin = (e) => {
     e.preventDefault();
-    const { email, senha } = this.state;
+    const { email } = this.state;
     const { dispatch, history } = this.props;
-    dispatch(login({ email, senha }));
+    dispatch(login({ email }));
     history.push('/carteira');
   };
 
