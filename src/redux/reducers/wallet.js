@@ -10,6 +10,7 @@ const INITIAL_STATE = {
 const walletReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case 'ADD_EXPENSE':
+  case 'UPDATE_CURRENCIES':
     return { ...state, ...action.payload };
   default:
     return state;
