@@ -8,8 +8,19 @@ const INITIAL_STATE = {
 };
 
 const walletReducer = (state = INITIAL_STATE, action) => {
+  const { payload } = action;
   switch (action.type) {
   case 'ADD_EXPENSE':
+    return { ...state,
+      expenses: [...state.expenses, {
+        id: state.expenses.length,
+        value: payload.valor,
+        currency: payload.moeda,
+        method: payload.metodo,
+        tag: payload.categoria,
+        description: payload.descricao,
+        exchangeRates: payload.exchangeRates,
+      }] };
   case 'UPDATE_CURRENCIES':
     return { ...state, ...action.payload };
   default:

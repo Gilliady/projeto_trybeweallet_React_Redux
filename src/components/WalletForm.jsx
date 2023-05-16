@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { fetchPricesToAddExpense } from '../redux/actions';
 
 class WalletForm extends Component {
   state = {
-    valor: 0,
+    valor: '',
     descricao: '',
     moeda: 'USD',
     metodo: 'Dinheiro',
@@ -14,12 +15,23 @@ class WalletForm extends Component {
   handleChange = ({ target: { name, value } }) => this
     .setState({ [name]: value });
 
+  addExpenseClick = () => {
+    const { dispatch } = this.props;
+    dispatch(fetchPricesToAddExpense(this.state));
+    this.setState({
+      valor: '',
+      descricao: '',
+      moeda: 'USD',
+      metodo: 'Dinheiro',
+      categoria: 'Alimentação',
+    });
+  };
+
   render() {
     const { valor, descricao, moeda, metodo, categoria } = this.state;
     const { currencies } = this.props;
     return (
       <fieldset>
-        <legend>Adicionar Despesa</legend>
         <label>
           Valor
           <input
@@ -68,19 +80,21 @@ class WalletForm extends Component {
           name="categoria"
         >
           <option value="Alimentação">Alimentação</option>
-          <option value="Laer">Lazer</option>
+          <option value="Lazer">Lazer</option>
           <option value="Trabalho">Trabalho</option>
           <option value="Transporte">Transporte</option>
           <option value="Saúde">Saúde</option>
         </select>
+        <button type="button" onClick={ this.addExpenseClick }>Adicionar despesa</button>
       </fieldset>
     );
   }
 }
 
 WalletForm.propTypes = {
-  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
+  currencies: PropTypes.arrayOf(PropTypes.string),
+  dispatch: PropTypes.func,
+}.isRequired;
 
 const mapStateToProps = ({ wallet }) => ({
   ...wallet,

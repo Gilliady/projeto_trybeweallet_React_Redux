@@ -34,3 +34,11 @@ export const fetchCurrencies = () => (dispatch) => {
       }));
     });
 };
+
+export const fetchPricesToAddExpense = (expense) => (dispatch) => {
+  fetch('https://economia.awesomeapi.com.br/json/all').then((data) => data.json())
+    .then((currencies) => {
+      expense.exchangeRates = { ...currencies };
+      dispatch(addExpense(expense));
+    });
+};
