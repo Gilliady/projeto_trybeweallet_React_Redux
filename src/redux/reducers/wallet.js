@@ -14,13 +14,19 @@ const walletReducer = (state = INITIAL_STATE, action) => {
     return { ...state,
       expenses: [...state.expenses, {
         id: state.expenses.length,
-        value: payload.valor,
-        currency: payload.moeda,
-        method: payload.metodo,
-        tag: payload.categoria,
-        description: payload.descricao,
+        value: payload.value,
+        currency: payload.currency,
+        method: payload.method,
+        tag: payload.tag,
+        description: payload.description,
         exchangeRates: payload.exchangeRates,
       }] };
+
+  case 'START_EDIT_EXPENSE':
+    return { ...state, editor: true, idToEdit: payload };
+
+  case 'EDIT_EXPENSE':
+    return { ...state, editor: false, expenses: payload };
 
   case 'REMOVE_EXPENSE':
     return { ...state,
@@ -29,6 +35,7 @@ const walletReducer = (state = INITIAL_STATE, action) => {
 
   case 'UPDATE_CURRENCIES':
     return { ...state, ...action.payload };
+
   default:
     return state;
   }

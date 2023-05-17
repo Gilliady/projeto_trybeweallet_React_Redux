@@ -43,14 +43,25 @@ describe('Header', () => {
     screen.getByText(/0\.00/i);
     screen.getByText(/brl/i);
     expect(fetch).toHaveBeenCalledWith('https://economia.awesomeapi.com.br/json/all');
-    userEvent.type(screen.getByLabelText(/valor/i), '10');
-    expect(screen.getByLabelText(/valor/i).value).toBe('10');
+    userEvent.type(screen.getByLabelText(/value/i), '10');
+    const valueInput = screen.getByLabelText(/value/i);
+    expect(valueInput.value).toBe('10');
     act(() => {
       userEvent.click(screen.getByRole('button', { name: /adicionar despesa/i }));
     });
     const [newText] = await screen.findAllByText(/47\.53/i);
     expect(newText).toBeInTheDocument();
 
+    expect(valueInput.value).not.toBe('10');
+
+    userEvent.click(await screen.findByRole('button', { name: /editar/i }));
+    expect(valueInput.value).toBe('10');
+
+    const descriptionInput = screen.getByLabelText(/Descrição/i);
+    userEvent.type(descriptionInput, 'Rosquinhas');
+    userEvent.click(screen.getByRole('button', { name: /editar despesa/i }));
+
+    screen.getByRole('cell', { name: /rosquinhas/i });
     act(() => {
       userEvent.click(screen.getAllByRole('button', { name: /excluir/i })[0]);
     });
